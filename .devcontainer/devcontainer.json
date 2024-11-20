@@ -1,6 +1,20 @@
 {
   "name": "PHP",
   "image": "mcr.microsoft.com/devcontainers/php",
-  "forwardPorts": [ 8080 ],
-  "postCreateCommand": "sudo chmod a+x ./.devcontainer/postCreateCommand.sh && ./.devcontainer/postCreateCommand.sh"
+  "forwardPorts": [
+    80
+  ],
+  "portsAttributes": {
+    "80": {
+      "label": "Application",
+      "onAutoForward": "ignore",
+      "requireLocalPort": true,
+      "elevateIfNeeded": true
+    }
+  },
+  "containerEnv": {
+    "DOPPLER_TOKEN": "${localEnv:DOPPLER_TOKEN}"
+  },
+  "postCreateCommand": "sudo chmod a+x ./.devcontainer/postCreateCommand.sh && ./.devcontainer/postCreateCommand.sh",
+  "postAttachCommand": "echo $DOPPLER_TOKEN"
 }
